@@ -6,6 +6,7 @@ import Homepage from "./pages/homepage";
 import App from "./App";
 import CakesList from "./pages/cakes";
 import ContactPage from "./pages/contact";
+import CartPage from "./pages/cart-page";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <ContactPage />,
+      },
+      {
+        path: "/cart-page",
+        element: <CartPage />,
       },
     ],
   },

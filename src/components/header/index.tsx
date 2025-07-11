@@ -47,7 +47,10 @@ const Header: React.FC = () => {
           </ul>
         </nav>
         <div className="flex gap-5">
-          <RiShoppingCart2Line className="w-6 h-6 cursor-pointer" />
+          <RiShoppingCart2Line
+            onClick={() => navigate("/cart-page")}
+            className="w-6 h-6 cursor-pointer"
+          />
         </div>
       </div>
     </header>
