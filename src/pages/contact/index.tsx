@@ -1,12 +1,10 @@
 import { useState } from "react";
-import type { ChangeEvent } from "react";
+import type { ChangeEvent, FormEvent } from "react";
 import {
   HiOutlineMail,
   HiOutlinePhone,
   HiOutlineLocationMarker,
 } from "react-icons/hi";
-import { FaInstagram, FaTwitter, FaFacebookF } from "react-icons/fa";
-
 interface FormData {
   name: string;
   email: string;
@@ -15,6 +13,13 @@ interface FormData {
 }
 
 const ContactPage = () => {
+  // --- Data kontak disimpan di sini agar mudah diakses ---
+  const contactInfo = {
+    address: "Jl. Jend. Sudirman No. 52-53, Jakarta",
+    phone: "+62 813-8334-4477",
+    email: "hello@fruitastic.com",
+  };
+
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -32,14 +37,34 @@ const ContactPage = () => {
     }));
   };
 
-  interface SubmitEvent {
-    preventDefault: () => void;
-  }
-
-  const handleSubmit = (e: SubmitEvent) => {
+  // --- Fungsi handleSubmit yang dimodifikasi ---
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Data Formulir:", formData);
-    alert("Terima kasih! Pesan Anda telah kami terima.");
+
+    // 1. Format nomor telepon (hapus spasi, -, dan +)
+    const phoneNumber = contactInfo.phone.replace(/[-+ ]/g, "");
+
+    // 2. Buat template pesan dari data formulir
+    const message = `
+*Pesan Baru dari Website*
+
+*Nama:* ${formData.name}
+*Email:* ${formData.email}
+*Subjek:* ${formData.subject}
+
+*Pesan:*
+${formData.message}
+    `.trim(); // .trim() untuk menghapus spasi kosong di awal/akhir
+
+    // 3. Encode pesan dan buat URL WhatsApp
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+    // 4. Buka WhatsApp di tab baru
+    window.open(whatsappUrl, "_blank");
+
+    // 5. Reset formulir setelahnya
+    alert("Anda akan diarahkan ke WhatsApp untuk mengirim pesan.");
     setFormData({
       name: "",
       email: "",
@@ -67,23 +92,21 @@ const ContactPage = () => {
                   <HiOutlineLocationMarker className="h-6 w-6 mt-1 text-white flex-shrink-0" />
                   <div>
                     <h3 className="font-semibold">Alamat Kantor</h3>
-                    <p className="text-gray-300">
-                      Jl. Jend. Sudirman No. 52-53, Jakarta
-                    </p>
+                    <p className="text-gray-300">{contactInfo.address}</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
                   <HiOutlinePhone className="h-6 w-6 mt-1 text-white flex-shrink-0" />
                   <div>
                     <h3 className="font-semibold">Telepon</h3>
-                    <p className="text-gray-300">+62 813-8334-4477</p>
+                    <p className="text-gray-300">{contactInfo.phone}</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
                   <HiOutlineMail className="h-6 w-6 mt-1 text-white flex-shrink-0" />
                   <div>
                     <h3 className="font-semibold">Email</h3>
-                    <p className="text-gray-300">hello@fruitastic.com</p>
+                    <p className="text-gray-300">{contactInfo.email}</p>
                   </div>
                 </div>
               </div>
@@ -107,6 +130,7 @@ const ContactPage = () => {
                 Kirim Pesan
               </h2>
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Bagian input form tidak ada perubahan */}
                 <div>
                   <label
                     htmlFor="name"
@@ -192,29 +216,7 @@ const ContactPage = () => {
           </div>
         </div>
 
-        <div className="text-center mt-12">
-          <h3 className="text-gray-600 font-semibold mb-4">Ikuti Kami</h3>
-          <div className="flex justify-center space-x-6">
-            <a
-              href="#"
-              className="text-gray-500 hover:text-blue-700 transition"
-            >
-              <FaFacebookF size={24} />
-            </a>
-            <a
-              href="#"
-              className="text-gray-500 hover:text-blue-400 transition"
-            >
-              <FaTwitter size={24} />
-            </a>
-            <a
-              href="#"
-              className="text-gray-500 hover:text-pink-600 transition"
-            >
-              <FaInstagram size={24} />
-            </a>
-          </div>
-        </div>
+        <div className="text-center mt-12"></div>
       </div>
     </div>
   );
