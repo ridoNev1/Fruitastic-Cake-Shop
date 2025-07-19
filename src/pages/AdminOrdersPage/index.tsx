@@ -32,40 +32,40 @@ const formatCurrency = (amount: number) => {
 const getShipmentBadge = (status: number | null) => {
   switch (status) {
     case 1:
-      return <Badge variant="outline">Order Placed</Badge>;
+      return <Badge variant="outline">Pesanan Dibuat</Badge>;
     case 2:
       return (
-        <Badge className="bg-blue-500 hover:bg-blue-500/80">Shipped</Badge>
+        <Badge className="bg-blue-500 hover:bg-blue-500/80">
+          Pesanan Dikirim
+        </Badge>
       );
     case 3:
       return (
         <Badge className="bg-purple-500 hover:bg-purple-500/80">
-          In Transit
+          Dalam Perjalanan
         </Badge>
       );
     case 4:
       return (
-        <Badge className="bg-green-500 hover:bg-green-500/80">Delivered</Badge>
+        <Badge className="bg-green-500 hover:bg-green-500/80">
+          Pesanan Selesai
+        </Badge>
       );
     default:
-      return <Badge variant="secondary">N/A</Badge>;
+      return <Badge variant="secondary">Pesanan Bermasalah</Badge>;
   }
 };
 
 const getStatusBadge = (status: number) => {
   switch (status) {
     case 1:
-      return <Badge variant="destructive">Waiting for Payment</Badge>;
+      return <Badge variant="destructive">Menunggu Pembayaran</Badge>;
     case 2:
-      return (
-        <Badge className="bg-yellow-500 text-black hover:bg-yellow-500/80">
-          On Process
-        </Badge>
-      );
+      return <Badge className="bg-yellow-500">Sedang Diproses</Badge>;
     case 3:
       return (
         <Badge className="bg-green-500 text-white hover:bg-green-500/80">
-          Done
+          Selesai
         </Badge>
       );
     default:
@@ -209,12 +209,12 @@ export function AdminOrdersPage() {
                               <DropdownMenuItem
                                 onClick={() => handleUpdateStatus(order.id, 2)}
                               >
-                                Mark On Process
+                                Tandai Sedang Diproses
                               </DropdownMenuItem>
                               <DropdownMenuItem
                                 onClick={() => handleUpdateStatus(order.id, 3)}
                               >
-                                Mark Done
+                                Tandai Selesai
                               </DropdownMenuItem>
                             </DropdownMenuContent>
                           </DropdownMenu>
@@ -237,21 +237,21 @@ export function AdminOrdersPage() {
                                   handleUpdateShipping(order.id, 2)
                                 }
                               >
-                                Mark Shipped
+                                Tandai Dikirim
                               </DropdownMenuItem>
                               <DropdownMenuItem
                                 onClick={() =>
                                   handleUpdateShipping(order.id, 3)
                                 }
                               >
-                                Mark In Transit
+                                Tandai Dalam Perjalanan
                               </DropdownMenuItem>
                               <DropdownMenuItem
                                 onClick={() =>
                                   handleUpdateShipping(order.id, 4)
                                 }
                               >
-                                Mark Delivered
+                                Tandai Terkirim
                               </DropdownMenuItem>
                             </DropdownMenuContent>
                           </DropdownMenu>

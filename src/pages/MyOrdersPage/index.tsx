@@ -21,15 +21,27 @@ const formatCurrency = (amount: number) => {
 const getShipmentBadge = (status: number | null) => {
   switch (status) {
     case 1:
-      return <Badge variant="destructive">Order Placed</Badge>;
+      return <Badge variant="outline">Pesanan Dibuat</Badge>;
     case 2:
-      return <Badge className="bg-yellow-500">Shipped</Badge>;
+      return (
+        <Badge className="bg-blue-500 hover:bg-blue-500/80">
+          Pesanan Dikirim
+        </Badge>
+      );
     case 3:
-      return <Badge className="bg-blue-500">In Transit</Badge>;
+      return (
+        <Badge className="bg-purple-500 hover:bg-purple-500/80">
+          Dalam Perjalanan
+        </Badge>
+      );
     case 4:
-      return <Badge className="bg-green-500">Done</Badge>;
+      return (
+        <Badge className="bg-green-500 hover:bg-green-500/80">
+          Pesanan Selesai
+        </Badge>
+      );
     default:
-      return <Badge variant="secondary">Tidak Diketahui</Badge>;
+      return <Badge variant="secondary">Pesanan Bermasalah</Badge>;
   }
 };
 
