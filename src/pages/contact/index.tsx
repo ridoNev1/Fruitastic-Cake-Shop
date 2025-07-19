@@ -75,7 +75,7 @@ ${formData.message}
 
   return (
     <div className="bg-gray-50 min-h-screen antialiased">
-      <div className="container mx-auto px-4 py-12 md:py-20">
+      <div className="__main-container mx-auto px-4 py-12 md:py-20">
         <div className="max-w-6xl mx-auto bg-white shadow-xl rounded-2xl overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-2">
             <div className="bg-[#3d4b2f] p-8 md:p-12 text-white">

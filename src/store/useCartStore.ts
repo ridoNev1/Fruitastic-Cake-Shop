@@ -1,6 +1,33 @@
+// src/stores/cartStore.ts
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { CartStore } from "../types.type";
+
+export interface Product {
+  id: string;
+  product_name: string;
+  product_price: number;
+  product_qty: number;
+  product_weight: number;
+  product_story: string;
+  product_image_url: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface CartItem extends Product {
+  quantity: number;
+}
+
+export interface CartStore {
+  items: CartItem[];
+  addItem: (product: Product) => void;
+  removeItem: (productId: string) => void;
+  updateQuantity: (productId: string, quantity: number) => void;
+  clearCart: () => void;
+  getDetailQtyById: (productId: string) => number;
+  getTotalItems: () => number;
+  getTotalPrice: () => number;
+}
 
 export const useCartStore = create<CartStore>()(
   persist(
@@ -48,7 +75,7 @@ export const useCartStore = create<CartStore>()(
       },
       getTotalPrice: () => {
         return get().items.reduce(
-          (total, item) => total + item.price * item.quantity,
+          (total, item) => total + item.product_price * item.quantity,
           0
         );
       },

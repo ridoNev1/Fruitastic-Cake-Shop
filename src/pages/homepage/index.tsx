@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import HeroSection from "../../components/hero-section";
 import CakeImageSection from "../../components/cake-image";
 import UspSection from "../../components/usp-section";
 import ProductCard from "../../components/product-card";
-import { mockProductData } from "../../constant";
 import { useNavigate } from "react-router-dom";
 import { useCartStore } from "../../store/useCartStore";
+import { useProductStore } from "@/store/useProductStore";
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
+  const { fetchAllProducts, products } = useProductStore();
   const { addItem, getDetailQtyById, updateQuantity } = useCartStore();
+
+  useEffect(() => {
+    fetchAllProducts();
+  }, [fetchAllProducts]);
 
   return (
     <>
@@ -24,19 +29,19 @@ const HomePage: React.FC = () => {
         </div>
       </section>
       <section className="py-16 bg-white">
-        <p className="mt-2 text-2xl leading-8 mb-12 text-center font-extrabold tracking-tight text-[#3d4b2f] sm:text-4xl">
+        <p className="mt-2 text-3xl leading-8 mb-12 text-center font-bold tracking-tight text-[#3d4b2f]">
           Our Products
         </p>
         <div className="__main-container grid gap-6 justify-items-center grid-cols-[repeat(auto-fit,minmax(300px,1fr))]">
-          {mockProductData.slice(0, 4).map((el) => (
+          {products.slice(0, 4).map((el) => (
             <ProductCard
               key={el.id}
-              id={el.id}
-              imageUrl={el?.imageUrl}
-              price={el?.price}
-              name={el?.name}
+              id={+el.id}
+              imageUrl={el?.product_image_url}
+              price={el?.product_price}
+              name={el?.product_name}
               isVerified={true}
-              bio={el?.bio}
+              bio={el?.product_story}
               addProduct={() => addItem(el)}
               minProduct={() =>
                 updateQuantity(el.id, getDetailQtyById(el.id) - 1)

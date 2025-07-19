@@ -7,6 +7,9 @@ import App from "./App";
 import CakesList from "./pages/cakes";
 import ContactPage from "./pages/contact";
 import CartPage from "./pages/cart-page";
+import ProfilePage from "./pages/EditProfile";
+import { MyOrdersPage } from "./pages/MyOrdersPage";
+import { AdminOrdersPage } from "./pages/AdminOrdersPage";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +31,18 @@ const router = createBrowserRouter([
       {
         path: "/cart-page",
         element: <CartPage />,
+      },
+      {
+        path: "/profile",
+        element: <ProfilePage />,
+      },
+      {
+        path: "/my-orders",
+        element: <MyOrdersPage />,
+      },
+      {
+        path: "/admin/all-orders",
+        element: <AdminOrdersPage />,
       },
     ],
   },

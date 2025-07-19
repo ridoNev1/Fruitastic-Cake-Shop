@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Header from "./components/header";
 import FruitasticFooter from "./components/footer";
+import { Toaster } from "sonner";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <section>
         <FruitasticFooter />
       </section>
+      <Toaster richColors />
     </>
   );
 }
